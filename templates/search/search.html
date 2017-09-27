@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load highlight %}
+{% block left_content %}
+    <h2>搜索:</h2>
+<table>
+    <form method="get" action="{% url 'haystack_search' %}" id="search" class="f_l">
+    <input name="q" type="text" size="40" placeholder="搜索...">
+    </form>
+</table>
+
+<div>
+    {% if query %}
+
+            <h2>结果：</h2>
+                {% for result in page.object_list %}
+						<div class="row">
+							<article>
+								<div class="art-header">
+									<div class="entry-title">
+										<a href="{% url 'article' %}?id={{ result.object.id }}">{% highlight result.object.title  with query %}</a>
+									</div>
+									<span class="	fa fa-user"></span>{{ result.object.user.username}} <span class="fa fa-calendar"></span>{{ result.object.date_publish | date:'Y-m-d'}}
+								</div>
+								<div class="art-content">
+									<div class="zoom-container">
+										<a href="{% url 'article' %}?id={{ result.object.id }}">
+											<img src= {{result.object.article_cover.url}}  >
+										</a>
+									</div>
+									<p>{% highlight result.object.content with query %}</p>
+                                    <p class="autor"><span class="viewnum f_r">浏览（<a href="{% url 'article' %}?id={{ result.object.id }}">{{ result.object.click_count }}</a>）</span><span class="pingl f_r">评论（<a href="{% url 'article' %}?id={{ result.object.id }}#comments">{{ result.object.comment_set.all.count }}</a>）</span></p>
+                                    <div class="t-center"><a class="button button03" href="{% url 'article' %}?id={{ result.object.id }}">阅读更多</a></div>
+								</div>
+							</article>
+						</div>
+
+            {% empty %}
+                <div class="no-post">没有搜索到你想要的结果！</div>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&page={{ page.previous_page_number }}">{% endif %}« Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&page={{ page.next_page_number }}">{% endif %}Next »{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+
+    {% endif %}
+</div>
+
+{% endblock%}

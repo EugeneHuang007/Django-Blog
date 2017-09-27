@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block header_content %}
+    {% include 'ad.html' %}
+{% endblock %}
+{% block left_content %}
+<div class="wrap-content">
+                        <h2>最新文章</h2>
+                        {% include 'article_list.html' %}
+</div>
+    {% include 'pagination.html' %}
+{% endblock %}

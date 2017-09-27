@@ -1,0 +1,25 @@
+<div class="clearfix">
+		<div class="wrap-header">
+			<div class="row">
+				<div class="col-full t-center">
+					<div class="wrap-col">
+						<div class="logo"><a href="#"><img src="/static/images/logo.png"></a></div>
+						<div class="tagline">为 当 年 吹 过 的 牛 付 诸 行 动</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slider">
+			<!-- Slideshow -->
+			<div class="callbacks_container">
+				<ul class="rslides callbacks callbacks1" id="slider">
+                    {% for ad in ad_list %}
+					<li id="callbacks1_s0" class="callbacks1_on" style="display: block; float: left; position: relative; opacity: 1; z-index: 2; transition: opacity 500ms ease-in-out;">
+						<img src="{{ ad.image_url.url }}" alt="">
+					</li>
+                    {% endfor %}
+				</ul><a href="#" class="callbacks_nav callbacks1_nav prev">Previous</a><a href="#" class="callbacks_nav callbacks1_nav next">Next</a>
+			</div>
+		</div>
+	</div>

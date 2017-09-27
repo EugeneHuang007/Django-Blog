@@ -1,0 +1,22 @@
+{% for article in article_list %}
+						<div class="row">
+							<article>
+								<div class="art-header">
+									<div class="entry-title">
+										<a href="{% url 'article' %}?id={{ article.id }}">{{ article.title }}</a>
+									</div>
+									<span class="	fa fa-user"></span>{{ article.user.username}} <span class="fa fa-calendar"></span>{{ article.date_publish | date:'Y-m-d'}}
+								</div>
+								<div class="art-content">
+									<div class="zoom-container">
+										<a href="{% url 'article' %}?id={{ article.id }}">
+											<img src= {{article.article_cover.url}}  >
+										</a>
+									</div>
+									<p>{{ article.desc }}</p>
+                                    <p class="autor"><span class="lm f_l">{% for tag in article.tag.all %}<a href="{% url 'tag' %}?id={{ tag.id }}">{{ tag.name }}</a>&nbsp;{% endfor %}</span><span class="viewnum f_r">浏览（<a href="{% url 'article' %}?id={{ article.id }}">{{ article.click_count }}</a>）</span><span class="pingl f_r">评论（<a href="{% url 'article' %}?id={{ article.id }}#comments">{{ article.comment_set.all.count }}</a>）</span></p>
+                                    <div class="t-center"><a class="button button03" href="{% url 'article' %}?id={{ article.id }}">阅读更多</a></div>
+								</div>
+							</article>
+						</div>
+                        {% endfor %}

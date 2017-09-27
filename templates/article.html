@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+    {% block left_content %}
+
+   <div class="col-md-12 blog-main " >
+                    <article class="blog-post">
+                        <header>
+
+                            <div class="lead-image">
+                                <img src={{ article.article_cover.url }} alt="{{ article.title }}的封面" class="img-responsive">
+
+                            </div>
+                        </header>
+                        <div class="body">
+                            <h1>{{ article.title }}</h1>
+                            <div class="meta">
+                                <i class="fa fa-user"></i>{{ article.user.username}}<i class="fa fa-calendar"></i>{{ article.date_publish | date:'Y-m-d' }}<i class="fa fa-eye"></i>{{ article.click_count }}<i class="fa fa-comments"></i><span class="data"><a href="#comments">{{ article.comment_set.all.count }}条评论</a></span>
+                            </div>
+                           {{ article.content | safe }}
+                        </div>
+
+                        <div class="f_r">
+
+                            <i class="fa fa-tags"></i><span class="data">{% for tag in article.tag.all %}<a  href="{% url 'tag'%}?id={{ tag.id }}">{{ tag.name }}</a>&nbsp;{% endfor %}</span><i class="fa fa-th-large"></i><span class="data"><a href="#comments">{{ article.category }}</a></span>
+
+                        </div>
+
+                    </article>
+
+                    <aside class="comments" id="comments">
+
+                        <h2><i class="fa fa-comments"></i>{{ article.comment_set.all.count }}条评论</h2>
+
+                        {% for comment in comment_list %}
+                        <article class="comment">
+                            <header class="clearfix">
+                                <img src="{{ comment.user.avatar.url }}" class="avatar" alt="A Smart Guy" >
+                                <div class="meta">
+                                    <h3><a href="#">{{ comment.user.username }}</a></h3>
+                                    <span class="date">
+                                        {{ comment.date_publish | date:'Y-m-d' }}
+                                    </span>
+                                    <span class="separator">
+                                        -
+                                    </span>
+
+                                    <a href="#create-comment" class="reply-link">Reply</a>
+                                </div>
+                            </header>
+                             <div class="body">
+                                {{ comment.content }}
+                            </div>
+                        </article>
+                        {% for children_comment in comment.children_comment %}
+                        <article class="comment reply">
+                            <header class="clearfix">
+                                <img src="{{ children_comment.user.avatar.url }}" class="avatar" alt="A Smart Guy" >
+                                <div class="meta">
+                                    <h3><a href="#">{{ children_comment.user.username }}</a></h3>
+                                    <span class="date">
+                                        {{ children_comment.date_publish | date:'Y-m-d' }}
+                                    </span>
+                                    <span class="separator">
+                                        -
+                                    </span>
+
+                                    <a href="#create-comment" class="reply-link">Reply</a>
+                                </div>
+                            </header>
+                             <div class="body">
+                                {{ children_comment.content }}
+                            </div>
+                        </article>
+                        {% endfor %}
+                        {% endfor %}
+                    </aside>
+
+                    <div class="contact" id="create-comment">
+                        <h2><i class="fa fa-pencil"></i>添加评论</h2>
+                        <div id="contact_form">
+    {% if not request.user.is_authenticated %}
+    <div class='login_info'>还没有登陆？可以登录后再评论哦。<b><a href="{% url 'login' %}">&raquo;去登录</a>&nbsp;<a href="{% url 'reg' %}">&raquo;去注册</a></b></div>
+    {% else %}
+    <div class='login_info'><b>{{ request.user.username }}</b>,快来写点评论吧!&nbsp;<a href="{% url 'logout' %}">注销</a></div>
+    {% endif %}
+                            <form name="form1" id="ff" method="post" action="{% url 'comment_post' %}" >
+                                {% csrf_token %}
+                                <label class="row">
+                                    <div class="col-1-2">
+                                        <div class="wrap-col">
+                                            {{ comment_form.author }}
+                                        </div>
+                                    </div>
+                                    <div class="col-1-2">
+                                        <div class="wrap-col">
+                                            {{ comment_form.email }}
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="row">
+                                    <div class="col-full">
+                                        <div class="wrap-col">
+                                            {{ comment_form.url }}
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="row">
+                                    <div class="wrap-col">
+                                        {{ comment_form.comment }}
+                                    </div>
+                                </label>
+
+                                <center>{{ comment_form.article }}<input class="sendButton" type="submit" name="submitcontact" value="Submit"></center>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+
+    </div>
+    {% endblock %}
+
+
+
+    {% block custom_js %}
+
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/modernizr.js"></script>
+    {% endblock%}

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107044501-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107044501-1');
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d3c758a77ac8a920463d40289c3fd9bb";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>EugeneHuang's Blog</title>
+	<meta name="description" content="EugeneHuang's Blog">
+	<meta name="author" content="">
+	
+    <!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+  ================================================== -->
+  	<link rel="stylesheet" href="/static/css/zerogrid.css">
+	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/morestyle.css">
+	<link rel="stylesheet" href="/static/css/menu.css">
+	<link rel="stylesheet" href="/static/css/responsiveslides.css">
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    {% block custom_css %}   {% endblock%}
+    <script src="/static/js/jquery183.min.js"></script>
+    <script src="/static/js/responsiveslides.min.js"></script>
+    <style>
+        span.highlighted {
+            color: red;
+        }
+    </style>
+
+
+    <script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+		  // Slideshow 幻灯片
+		  $("#slider").responsiveSlides({
+			auto: true,
+			pager: false,
+			nav: true,
+			speed: 500,
+			namespace: "callbacks",
+			before: function () {
+			  $('.events').append("<li>before event fired.</li>");
+			},
+			after: function () {
+			  $('.events').append("<li>after event fired.</li>");
+			}
+		  });
+		});
+	</script>
+
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assestatic/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="/static/js/html5.js"></script>
+		<script src="/static/js/css3-mediaqueries.js"></script>
+	<![endif]-->
+    {% block custom_js %}   {% endblock%}
+</head>
+<body>
+<div class="wrap-body">
+
+<!--////////////////////////////////////Header-->
+<header>
+	<div class="top-header">
+		<div class="zerogrid">
+			<nav id="menu-wrap"><div id="menu-trigger">导航</div>    
+				<ul id="menu" style="display: none;">
+					<li><a href={% url 'index' %}>首页</a></li>
+					<li>
+						<a href="#">分类</a>
+						<ul>
+                            {% for category in category_list %}
+							<li>
+								<a href="{% url 'category' %}?cid={{ category.id }}">{{ category.name }}</a>
+							</li>
+                            {% endfor %}
+<!-- 							<li>
+								<a href="#">Item 04</a>				
+								<ul>
+									<li><a href="#">Item 41</a></li>
+								</ul>
+							</li> -->
+						</ul>
+					</li>
+					<li><a href="{% url 'about' %}">关于</a></li>
+					<li><a href="{% url 'contact' %}">联系</a></li>
+					<li style="float:right !important">
+						<form method="get" action="{% url 'haystack_search' %}" id="search" class="f-right">
+							<input name="q" type="text" size="40" placeholder="搜索..." />
+						</form>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+{% block header_content%}{% endblock %}
+
+
+
+
+</header>
+
+<section id="container">
+	<div class="wrap-container">
+		<div class="zerogrid">
+			<div class="row">
+				<div id="main-content" class="col-2-3">
+
+{% block left_content %}{% endblock %}
+
+
+				</div>
+
+                    <div id="sidebar" class="col-1-3">
+					<!---- Start Widget ---->
+					<div class="widget wid-about">
+						<div class="wid-header">
+							<h5>关于我</h5>
+						</div>
+						<div class="wid-content">
+							<img src="/static/images/10.JPG" />
+							<p>我的名字叫Eugene，你可以叫我UG，这是我自己搭建的Blog，我会在这里持续发表文章，欢迎你来到这里！</p>
+						</div>
+					</div>
+					<!---- Start Widget
+					<div class="widget wid-follow">
+						<div class="wid-header">
+							<h5>联系我</h5>
+						</div>
+						<div class="wid-content">
+							<ul class="quick-link">
+								<li><a href=""><i class="fa fa-facebook"></i></a></li>
+								<li><a href=""><i class="fa fa-twitter"></i></a></li>
+								<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								<li><a href=""><i class="fa fa-instagram"></i></a></li>
+								<li><a href=""><i class="fa fa-github"></i></a></li>
+							</ul>
+						</div>
+					</div> ---->
+                    <!---- 文章归档 ---->
+                    <div class="widget wid-follow">
+                        <div class="tuwen">
+                            <h3>文章归档</h3>
+                              <ul>
+                                  {% for archive in archive_list %}
+                                <li>
+                                  <p><span class="tutime font-size-18"><a href='{% url 'archive' %}?year={{ archive | slice:":4" }}&month={{ archive | slice:"5:7" }}'>{{ archive }}</a></span></p>
+                                </li>
+                                {% endfor %}
+                              </ul>
+                        </div>
+                    </div>
+					<!---- Start Widget ---->
+					<div class="widget wid-category">
+						<div class="wid-header">
+							<h5>文章分类</h5>
+						</div>
+						<div class="wid-content">
+							<ul>
+                                {% for category in category_list %}
+								<li><a href="{% url 'category' %}?cid={{ category.id }}">{{ category.name }}</a></li>
+                                {% endfor %}
+							</ul>
+						</div>
+					</div>
+                    <!---- Start Widget 浏览评论推荐---->
+
+            <div class="moreSelect" id="lp_right_select">
+                <script>
+                    window.onload = function ()
+                    {
+                      var oLi = document.getElementById("tab").getElementsByTagName("li");
+                      var oUl = document.getElementById("ms-main").getElementsByTagName("div");
+
+                      for(var i = 0; i < oLi.length; i++)
+                      {
+                        oLi[i].index = i;
+                        oLi[i].onmouseover = function ()
+                        {
+                          for(var n = 0; n < oLi.length; n++) oLi[n].className="";
+                          this.className = "cur";
+                          for(var n = 0; n < oUl.length; n++) oUl[n].style.display = "none";
+                          oUl[this.index].style.display = "block"
+                        }
+                      }
+                    }
+                </script>
+
+                          <div class="ms-top">
+                            <ul class="hd" id="tab">
+                              <li class="cur"><a href="#ms-top">浏览排行</a></li>
+                              <li><a href="#ms-top">评论排行</a></li>
+                              <li><a href="#ms-top">站长推荐</a></li>
+                            </ul>
+                          </div>
+
+                          <div  class="ms-main" id="ms-main" >
+                            <div style="display: block" class="bd bd-news" >
+                              <ul>
+                                {% for article in article_click_count_list %}
+                                <li><a href="{% url 'article' %}?id={{ article.id }}" target="_blank">{{ article.title | slice:':15'}}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                            <div  class="bd bd-news">
+                              <ul>
+                                  {% for article in article_comment_list %}
+                                <li><a href="{% url 'article' %}?id={{ article.id }}" target="_blank">{{ article.title | slice:':15' }}</a></li>
+                                  {% endfor %}
+
+                              </ul>
+                            </div>
+                            <div class="bd bd-news">
+                              <ul>
+                                {% for article in article_is_recommend_list %}
+                                <li><a href="{% url 'article' %}?id={{ article.id }}" target="_blank">{{ article.title | slice:':15' }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                          </div>
+                          <!--ms-main end -->
+             </div>
+                    <!---- Start Widget 标签云---->
+					<div class="widget wid-subcribe">
+						<div class="wid-header">
+     						<h4>标签云</h4>
+						</div>
+						<div class="wid-content">
+						    <div class="cloud">
+						      <ul>
+                                  {% for tag in tag_list %}
+                                  <li><a href="{% url 'tag' %}?id={{ tag.id }}">{{ tag.name }}</a></li>
+                                  {% endfor %}
+						      </ul>
+						    </div>
+						</div>
+					</div>
+
+                    <!---- Start Widget 友情链接---->
+					<div class="widget wid-follow">
+						<div class="wid-header">
+							<h4>友情链接</h4>
+						</div>
+
+						<div class="wid-content">
+							<div class="links">
+						      <ul>
+                                  {% for links in links_list %}
+						        <li><a href="/">{{ links.title }}</a></li>
+                                  {% endfor %}
+						      </ul>
+						    </div>
+						</div>
+					</div>
+
+			</div>
+		</div>
+	</div>
+    </div>
+</section>
+<footer>
+	<div class="zerogrid">
+		<div class="wrap-footer t-center">
+			<div class="row">
+				<div class="full">
+					<ul class="quick-link">
+						<li><a href=""><i class="fa fa-facebook"></i></a></li>
+						<li><a href=""><i class="fa fa-twitter"></i></a></li>
+						<li><a href=""><i class="fa fa-youtube"></i></a></li>
+						<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+						<li><a href=""><i class="fa fa-instagram"></i></a></li>
+						<li><a href=""><i class="fa fa-github"></i></a></li>
+					</ul>
+					<p class="copy-right">
+                        <p><h4>为当年吹过的牛付诸行动</h4></p>
+                        <p><a href="http://zhanzhang.baidu.com/" target="_blank" title="百度站长">Eugene</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</footer>
+
+
+<script type="text/javascript">
+    $(function() {
+		if ($.browser.msie && $.browser.version.substr(0,1)<7)
+		{
+		$('li').has('ul').mouseover(function(){
+			$(this).children('ul').css('visibility','visible');
+			}).mouseout(function(){
+			$(this).children('ul').css('visibility','hidden');
+			})
+		}
+
+		/* Mobile */
+		$("#menu-trigger").on("click", function(){
+			$("#menu").slideToggle();
+		});
+
+		// iPad
+		var isiPad = navigator.userAgent.match(/iPad/i) != null;
+		if (isiPad) $('#menu ul').addClass('no-transition');      
+    });          
+</script>
+
+
+</div>
+</body></html>

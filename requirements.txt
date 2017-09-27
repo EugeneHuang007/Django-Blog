@@ -1,0 +1,8 @@
+Django==1.11.5
+django-haystack==2.6.1
+jieba==0.39
+olefile==0.44
+Pillow==4.2.1
+PyMySQL==0.7.11
+pytz==2017.2
+Whoosh==2.7.4
